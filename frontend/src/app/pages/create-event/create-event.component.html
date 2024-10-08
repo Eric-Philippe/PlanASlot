@@ -1,0 +1,113 @@
+<h1>Create Event</h1>
+<div class="flex flex-column gap-2">
+  <br />
+  <label for="eventName">Event name:</label>
+  <input
+    pInputText
+    id="eventName"
+    class="bg-gray-50 border border-gray-300"
+    [(ngModel)]="name"
+    required
+  />
+  <label for="endDatetime">End date:</label>
+  <p-calendar
+    inputId="endDatetime"
+    [showTime]="true"
+    [showIcon]="true"
+    [hourFormat]="'24'"
+    dateFormat="dd/mm/yy"
+    class="bg-gray-50 border border-gray-300"
+    [(ngModel)]="endDatetime"
+    required
+  />
+</div>
+
+<!-- Liste des DaySlots -->
+<div class="card" *ngIf="canCreateSlots()">
+  <div *ngFor="let daySlot of daysSlots; let i = index">
+    <!-- Date du DaySlot -->
+    <div class="flex align-items-center">
+      <p-calendar
+        [showIcon]="true"
+        dateFormat="dd/mm/yy"
+        [(ngModel)]="daySlot.date"
+        placeholder="jj/mm/aaaa"
+        required
+      ></p-calendar>
+
+      <!-- Supprimer DaySlot (min 1 DaySlot doit rester) -->
+      <button
+        class="p-button p-button-danger ml-2"
+        (click)="removeDaySlot(i)"
+        *ngIf="daysSlots.length > 1"
+      >
+        <i class="pi pi-trash"></i>
+      </button>
+    </div>
+
+    <!-- Créneaux horaires pour ce DaySlot -->
+    <div
+      *ngFor="let slot of daySlot.slots; let j = index"
+      class="flex flex-row gap-2"
+    >
+      <!-- Start time -->
+      <p-calendar
+        [showTime]="true"
+        [hourFormat]="'24'"
+        [timeOnly]="true"
+        [(ngModel)]="slot.startDatetime"
+        placeholder="Start time"
+        required
+      ></p-calendar>
+
+      <!-- End time avec validation -->
+      <p-calendar
+        [showTime]="true"
+        [hourFormat]="'24'"
+        [timeOnly]="true"
+        [(ngModel)]="slot.endDatetime"
+        placeholder="End time"
+        [disabled]="!slot.startDatetime"
+        [minDate]="slot.startDatetime"
+        [style]="{
+          'border-color': isEndTimeValid(slot.startDatetime, slot.endDatetime)
+            ? ''
+            : 'red'
+        }"
+        required
+      ></p-calendar>
+
+      <!-- Supprimer ce créneau (min 1 créneau doit rester) -->
+      <button
+        class="p-button p-button-danger"
+        (click)="removeSlot(daySlot, j)"
+        *ngIf="daySlot.slots.length > 1"
+      >
+        <i class="pi pi-minus"></i>
+      </button>
+
+      <!-- Ajouter un nouveau créneau -->
+      <button class="p-button p-button-success" (click)="addSlot(daySlot)">
+        <i class="pi pi-plus"></i>
+      </button>
+    </div>
+
+    <hr />
+  </div>
+
+  <!-- Ajouter un nouveau DaySlot -->
+  <button class="p-button p-button-success" (click)="addDaySlot()">
+    <i class="pi pi-plus"></i> Add Day Slot
+  </button>
+</div>
+
+<!-- Submit -->
+<div class="flex justify-content-center">
+  <button
+    pButton
+    pRipple
+    label="Create Event"
+    class="p-button-success"
+    (click)="createEvent()"
+  ></button>
+</div>

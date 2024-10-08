@@ -1,0 +1,7 @@
+<p-menubar [model]="headerItems" />
+<div class="card flex justify-content-center">
+  <div *ngIf="createEvent">
+    <app-create-event></app-create-event>
+  </div>
+  <div *ngIf="!createEvent"></div>
+</div>
