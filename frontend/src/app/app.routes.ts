@@ -10,8 +10,12 @@ export const routes: Routes = [
     pathMatch: "full",
   },
   {
-    path: "home",
+    path: "home/:id",
     component: HomeComponent,
+  },
+  {
+    path: "home",
+    redirectTo: "nothere",
   },
   {
     path: "admin",

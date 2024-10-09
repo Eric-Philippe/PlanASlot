@@ -1,0 +1,128 @@
+<div *ngIf="!isEventFinished()">
+  <div class="card">
+    <h1>Plan a Slot</h1>
+
+    <hr />
+
+    <h2>{{ event.name }}</h2>
+
+    <div class="flex flex-wrap">
+      <div class="w-full md:w-1/2 p-2 mt-2">
+        <p-floatLabel>
+          <input
+            type="text"
+            pInputText
+            id="firstname"
+            [(ngModel)]="user.firstname"
+            placeholder="Entrez votre prénom"
+            class="bg-gray-50 border border-gray-300 w-full"
+          />
+          <label for="firstname">Prénom</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="w-full md:w-1/2 p-2 mt-2">
+        <p-floatLabel>
+          <input
+            type="text"
+            pInputText
+            id="lastname"
+            [(ngModel)]="user.lastname"
+            placeholder="Entrez votre nom de famille"
+            class="bg-gray-50 border border-gray-300 w-full"
+          />
+          <label for="lastname">Nom de famille</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="w-full p-2 mt-4">
+        <p-floatLabel>
+          <input
+            type="email"
+            pInputText
+            id="email"
+            [(ngModel)]="user.email"
+            placeholder="Enter email"
+            class="bg-gray-50 border border-gray-300 w-full"
+          />
+          <label for="email">Adresse e-mail</label>
+        </p-floatLabel>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timetable Section -->
+  <div *ngIf="canShowSlots()" class="card mt-6">
+    <h2 class="text-lg font-semibold mb-4">Timetable</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div *ngFor="let daySlot of daySlots">
+        <div *ngIf="doesDaySlotContainsAvailableSlots(daySlot)">
+          <h3 class="text-lg font-medium">
+            {{ daySlot.date | date : "EEE d MMMM" }}
+          </h3>
+          <div *ngFor="let slot of daySlot.slots" class="mt-2">
+            <div
+              *ngIf="isSlotAvailable(slot)"
+              class="flex justify-between items-center p-2 border border-gray-200 bg-gray-50"
+              [ngClass]="{
+                'bg-green-100': slotSelected.Id_Booking === slot.Id_Booking
+              }"
+            >
+              <span>
+                <strong
+                  >{{ slot.startDatetime | date : "HH:mm" }} -
+                  {{ slot.endDatetime | date : "HH:mm" }}</strong
+                >
+                : {{ getSlotDuration(slot) }} minutes
+              </span>
+              <p-checkbox
+                binary="true"
+                (onChange)="onSlotSelected($event, slot)"
+                [ngModel]="slotSelected.Id_Booking === slot.Id_Booking"
+              ></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6" *ngIf="canSubmit()">
+    <button
+      pButton
+      type="button"
+      label="Confirmer"
+      class="w-full"
+      (click)="confirm()"
+    ></button>
+  </div>
+
+  <div class="flex justify-content-center">
+    <p-toast />
+    <p-confirmDialog>
+      <ng-template pTemplate="message" let-message>
+        <div
+          class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border mt-4"
+        >
+          <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+          <p>{{ message.message }}</p>
+        </div>
+      </ng-template>
+    </p-confirmDialog>
+  </div>
+</div>
+<div *ngIf="isEventFinished()">
+  <div class="card">
+    <h1>Plan a Slot</h1>
+
+    <hr />
+
+    <h2>{{ event.name }}</h2>
+
+    <div class="mt-6">
+      <p class="text-lg">
+        The event has finished. You can no longer plan a slot.
+      </p>
+    </div>
+  </div>
+</div>

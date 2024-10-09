@@ -1,0 +1,114 @@
+<h1>Consult Events</h1>
+<div class="card">
+  <div *ngIf="tabs.length !== 0">
+    <p-tabView>
+      <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title">
+        <div class="flex mt-6 mb-6">
+          <div class="col-md-6 mr-4">
+            <p-floatLabel>
+              <input
+                type="text"
+                pInputText
+                id="startDatetime"
+                name="startDatetime"
+                value="{{ getHumanReadableDateTime(tab.event.startDateTime) }}"
+                readonly
+              />
+              <label for="startDatetime">Start date:</label>
+            </p-floatLabel>
+          </div>
+          <div class="col-md-6 mr-12">
+            <p-floatLabel>
+              <input
+                type="text"
+                pInputText
+                id="endDatetime"
+                name="endDatetime"
+                value="{{ getHumanReadableDateTime(tab.event.endDateTime) }}"
+                readonly
+              />
+              <label for="endDatetime">End date:</label>
+            </p-floatLabel>
+          </div>
+          <div class="col-md-6 mr-6">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-link"
+              label="Copy event link"
+              class="p-button-primary"
+              (click)="copyEventLink(tab.event)"
+            ></button>
+          </div>
+          <div class="col-md-6">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              label="Delete event"
+              class="p-button-danger"
+              (click)="deleteEvent(tab.event)"
+            ></button>
+          </div>
+        </div>
+        <!-- Display all the slots and the registrations of the event in a timetable -->
+        <p-table [value]="tab.event.slots" [paginator]="true" [rows]="15">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Status</th>
+              <th>Day</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Email</th>
+              <th>Registration date</th>
+              <th>Actions</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-slot>
+            <tr>
+              <td>
+                <p-tag
+                  [severity]="getTagSeverity(slot)"
+                  [value]="getTagText(slot)"
+                />
+              </td>
+
+              <td>{{ getDay(slot.startDatetime) }}</td>
+              <td>{{ getTime(slot.startDatetime) }}</td>
+              <td>{{ getTime(slot.endDatetime) }}</td>
+              <td>
+                {{ getFirstname(slot) }}
+              </td>
+              <td>
+                {{ getLastname(slot) }}
+              </td>
+              <td>
+                {{ getEmail(slot) }}
+              </td>
+              <td>
+                {{ getRegistrationDate(slot) }}
+              </td>
+              <td>
+                <div *ngIf="slot.Id_Registration != null">
+                  <button
+                    pButton
+                    type="button"
+                    icon="pi pi-trash"
+                    class="p-button-rounded p-button-danger"
+                    (click)="deleteRegistration(slot)"
+                  ></button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+  <div *ngIf="tabs.length === 0">
+    <p>No events found</p>
+  </div>
+</div>
+<p-toast />

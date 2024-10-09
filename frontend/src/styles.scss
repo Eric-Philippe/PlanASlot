@@ -4,10 +4,6 @@
 
 @layer tailwind-base, primeng, tailwind-utilities;
 
-@layer tailwind-base {
-  @tailwind base;
-}
-
 @layer primeng {
 }
 
@@ -32,6 +28,13 @@ body {
 
 .card {
   background: var(--surface-card);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.card-success {
+  background: var(--surface-success);
   padding: 2rem;
   border-radius: 10px;
   margin-bottom: 1rem;

@@ -53,11 +53,14 @@ export default class SlotsService {
     await Database.query(query, values);
   };
 
-  public static detachRegistration = async (idSlot: string) => {
+  public static detachRegistration = async (
+    idSlot: string,
+    idRegistration: string
+  ) => {
     const query = `UPDATE slots SET id_registration = NULL WHERE id_booking = $1`;
     const values = [idSlot];
 
     await Database.query(query, values);
-    await RegistrationsService.delete(idSlot);
+    await RegistrationsService.delete(idRegistration);
   };
 }

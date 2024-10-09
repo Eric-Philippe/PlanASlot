@@ -1,12 +1,12 @@
-import { SlotResolved } from "./Slot";
+import { Slot } from "./Slot";
 
 export type Event = {
   Id_Event: string;
   name: string;
-  startDateTime: Date;
-  endDateTime: Date;
+  startDateTime: Date | string;
+  endDateTime: Date | string;
 };
 
 export type EventResolved = Event & {
-  slots: SlotResolved[];
+  slots: Slot[];
 };

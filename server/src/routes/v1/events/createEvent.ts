@@ -7,8 +7,6 @@ import { Event } from "../../../types/Event";
 export default async function createEvent(req: Request, res: Response) {
   let body = req.body;
 
-  console.log(body);
-
   if (
     !body.name ||
     !body.startDatetime ||

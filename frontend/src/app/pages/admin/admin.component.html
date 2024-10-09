@@ -1,7 +1,35 @@
-<p-menubar [model]="headerItems" />
-<div class="card flex justify-content-center">
-  <div *ngIf="createEvent">
-    <app-create-event></app-create-event>
+<div *ngIf="isLogged">
+  <p-menubar [model]="headerItems" />
+  <div class="card flex justify-content-center">
+    <div *ngIf="createEvent">
+      <app-create-event></app-create-event>
+    </div>
+    <div *ngIf="!createEvent">
+      <app-consult-event></app-consult-event>
+    </div>
   </div>
-  <div *ngIf="!createEvent"></div>
 </div>
+<div *ngIf="!isLogged">
+  <div class="flex items-center justify-center h-screen">
+    <div class="card">
+      <div class="p-field">
+        <h4 class="text-center">Login</h4>
+        <div class="mt-4">
+          <p-floatLabel>
+            <input
+              id="password"
+              type="password"
+              pInputText
+              [(ngModel)]="password"
+            />
+            <label for="password">Password</label>
+          </p-floatLabel>
+        </div>
+      </div>
+      <div class="p-field mt-4">
+        <button pButton type="button" label="Login" (click)="login()"></button>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast />

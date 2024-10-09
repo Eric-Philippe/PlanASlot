@@ -1,32 +1,44 @@
 <h1>Create Event</h1>
-<div class="flex flex-column gap-2">
-  <br />
-  <label for="eventName">Event name:</label>
-  <input
-    pInputText
-    id="eventName"
-    class="bg-gray-50 border border-gray-300"
-    [(ngModel)]="name"
-    required
-  />
-  <label for="endDatetime">End date:</label>
-  <p-calendar
-    inputId="endDatetime"
-    [showTime]="true"
-    [showIcon]="true"
-    [hourFormat]="'24'"
-    dateFormat="dd/mm/yy"
-    class="bg-gray-50 border border-gray-300"
-    [(ngModel)]="endDatetime"
-    required
-  />
+<div class="card">
+  <div class="flex">
+    <div class="col-md-6 mr-4">
+      <p-floatLabel>
+        <input
+          type="text"
+          pInputText
+          id="eventName"
+          name="eventName"
+          class="bg-gray-50 border border-gray-300"
+          [(ngModel)]="name"
+        />
+        <label for="eventName">Event name:</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="col-md-6 mr-4">
+      <p-floatLabel>
+        <p-calendar
+          id="endDatetime"
+          [showTime]="true"
+          [showIcon]="true"
+          [hourFormat]="'24'"
+          dateFormat="dd/mm/yy"
+          class="bg-gray-50 border border-gray-300"
+          [(ngModel)]="endDatetime"
+          required
+        />
+        <label for="endDatetime">End date:</label>
+      </p-floatLabel>
+    </div>
+  </div>
 </div>
 
 <!-- Liste des DaySlots -->
 <div class="card" *ngIf="canCreateSlots()">
+  <hr />
   <div *ngFor="let daySlot of daysSlots; let i = index">
     <!-- Date du DaySlot -->
-    <div class="flex align-items-center">
+    <div class="flex align-items-center mb-6">
       <p-calendar
         [showIcon]="true"
         dateFormat="dd/mm/yy"
@@ -35,7 +47,7 @@
         required
       ></p-calendar>
 
-      <!-- Supprimer DaySlot (min 1 DaySlot doit rester) -->
+      <!-- Supprimer DaySlot (min 1 DaySlot doit rester) tout à droite de -->
       <button
         class="p-button p-button-danger ml-2"
         (click)="removeDaySlot(i)"
@@ -48,7 +60,7 @@
     <!-- Créneaux horaires pour ce DaySlot -->
     <div
       *ngFor="let slot of daySlot.slots; let j = index"
-      class="flex flex-row gap-2"
+      class="flex flex-row gap-2 mb-4"
     >
       <!-- Start time -->
       <p-calendar
@@ -111,3 +123,5 @@
     (click)="createEvent()"
   ></button>
 </div>
+
+<p-toast />

@@ -69,11 +69,17 @@ export default class EventsService {
       WHERE Id_Event = $1
     `;
 
-    let idRegistrations = await Database.query(querySlots, [id]);
+    let result = await Database.query(querySlots, [id]);
 
-    if (idRegistrations.rowCount === 0) return;
+    let idRegistrations: { id_registration: number | null }[] =
+      result.rows.filter((row) => row.id_registration !== null);
 
-    await Database.query(queryRegistrations, [idRegistrations]);
+    if (idRegistrations.length != 0) {
+      for (const { id_registration } of idRegistrations) {
+        await Database.query(queryRegistrations, [id_registration?.toString()]);
+      }
+    }
+
     await Database.query(queryEvent, [id]);
 
     return;
@@ -89,8 +95,6 @@ export default class EventsService {
         .toString(36)
         .substring(2, 2 + length);
     } while (existingKeys.includes(newKey));
-
-    console.log(`Generated key: ${newKey}`);
 
     return newKey;
   };
