@@ -10,7 +10,6 @@ const DB_NAME = process.env.DB_NAME;
 
 let APP_PORT = parseInt(process.env.PORT as string) || 3000;
 
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
 const HASHED_PASSWORD = process.env.HASHED_PASSWORD || "admin";
 
 export {
@@ -20,6 +19,5 @@ export {
   DB_PASSWORD,
   DB_NAME,
   APP_PORT,
-  ADMIN_USERNAME,
   HASHED_PASSWORD,
 };
