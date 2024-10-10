@@ -1,4 +1,4 @@
-CREATE TABLE Events (
+CREATE TABLE IF NOT EXISTS Events (
    Id_Event VARCHAR(28),
    name VARCHAR(100) NOT NULL,
    startDatetime TIMESTAMP NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE Events (
    PRIMARY KEY(Id_Event)
 );
 
-CREATE TABLE Registrations (
+CREATE TABLE IF NOT EXISTS Registrations (
    Id_Registration SERIAL,
    email VARCHAR(320) NOT NULL,
    firstname VARCHAR(50) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE Registrations (
    PRIMARY KEY(Id_Registration)
 );
 
-CREATE TABLE Slots (
+CREATE TABLE IF NOT EXISTS Slots (
    Id_Booking SERIAL,
    startDatetime TIMESTAMP NOT NULL,
    endDatetime TIMESTAMP NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE Slots (
    FOREIGN KEY (Id_Registration) REFERENCES Registrations(Id_Registration)
 );
 
-CREATE VIEW view_event_registrations AS
+CREATE VIEW IF NOT EXISTS view_event_registrations AS
 SELECT
     e.Id_Event,
     e.startDatetime,

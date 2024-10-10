@@ -18,7 +18,7 @@ export class AdminComponent implements OnInit {
 
   endDate: Date = new Date();
 
-  isLogged: boolean = true;
+  isLogged: boolean = false;
 
   constructor(
     private loginService: LoginService,

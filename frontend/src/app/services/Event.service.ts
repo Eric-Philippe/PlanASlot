@@ -28,7 +28,7 @@ export class EventService {
 
       return await response.json();
     } catch (err) {
-      throw new Error("Error while fetching event");
+      return Promise.reject("Error while fetching event");
     }
   }
 

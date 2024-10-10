@@ -113,8 +113,6 @@ export class CreateEventComponent {
           summary: "Erreur",
           detail: `Erreur lors de la création de l'événement`,
         });
-
-        console.error(err);
       });
   }
 }

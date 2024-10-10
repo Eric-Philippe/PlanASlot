@@ -1,0 +1,40 @@
+<div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+  <div class="text-700 text-center">
+    <div class="text-blue-600 font-bold mb-3">
+      <i class="pi pi-calendar"></i>&nbsp;Plan a Slot
+    </div>
+    <div class="text-900 font-bold text-5xl mb-3">There is nothing here !</div>
+    <div class="text-700 text-2xl mb-5">
+      Assurez-vous que vous avez le bon lien ou que vous avez entré la bonne
+      adresse.
+    </div>
+    <div class="flex flex-col items-center mx-auto mt-12">
+      <label for="search" class="text-700 text-xl mb-6">
+        Essayez d'entrer le code alpha-numérique de l'event
+      </label>
+
+      <p-inputGroup class="w-full max-w-xs md:max-w-sm lg:max-w-md">
+        <p-inputGroupAddon>{{ startUrl }}</p-inputGroupAddon>
+        <input
+          pInputText
+          type="text"
+          class="border border-gray-300 p-2 w-2/4"
+          placeholder="Code"
+          [(ngModel)]="endUrl"
+          (keyup.enter)="search()"
+        />
+      </p-inputGroup>
+    </div>
+
+    <div class="flex justify-center mt-8">
+      <button
+        pButton
+        pRipple
+        label="Accéder"
+        class="p-button-lg p-button-primary"
+        [disabled]="!isButtonReady()"
+        (click)="search()"
+      ></button>
+    </div>
+  </div>
+</div>

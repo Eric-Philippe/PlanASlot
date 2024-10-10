@@ -7,6 +7,8 @@ import { CalendarModule } from "primeng/calendar";
 import { CheckboxModule } from "primeng/checkbox";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { FloatLabelModule } from "primeng/floatlabel";
+import { InputGroupModule } from "primeng/inputgroup";
+import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 import { InputTextModule } from "primeng/inputtext";
 import { MenubarModule } from "primeng/menubar";
 import { TableModule } from "primeng/table";
@@ -29,6 +31,8 @@ import { ToastModule } from "primeng/toast";
     ConfirmDialogModule,
     ToastModule,
     ButtonModule,
+    InputGroupModule,
+    InputGroupAddonModule,
   ],
   exports: [
     CommonModule,
@@ -44,6 +48,8 @@ import { ToastModule } from "primeng/toast";
     ConfirmDialogModule,
     ToastModule,
     ButtonModule,
+    InputGroupModule,
+    InputGroupAddonModule,
   ],
   providers: [Router],
 })

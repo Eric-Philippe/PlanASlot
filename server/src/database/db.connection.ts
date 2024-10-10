@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER } from "../conf";
+import { DB_HOST, DB_NAME, DB_PASSWORD, DB_USER } from "../conf";
 
 export default class Database {
   private static database = new Pool({
@@ -7,7 +7,7 @@ export default class Database {
     host: DB_HOST,
     database: DB_NAME,
     password: DB_PASSWORD,
-    port: DB_PORT,
+    port: 5432,
   });
 
   public static query = async (query: string, values?: any[]) => {

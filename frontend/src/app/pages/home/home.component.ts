@@ -12,7 +12,7 @@ const NULL_ID_BOOKING = "#$#$#$#";
   standalone: true,
   templateUrl: "home.component.html",
   imports: [ImportsModule],
-  providers: [EventService, ConfirmationService, MessageService],
+  providers: [EventService, ConfirmationService, MessageService, Router],
 })
 export class HomeComponent implements OnInit {
   id: string | null = null;

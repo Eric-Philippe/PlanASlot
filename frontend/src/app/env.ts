@@ -1,2 +1,2 @@
-export const URL = "http://localhost:4200";
-export const API_URL = "http://localhost:3000/api/v1";
+export const URL = "https://planaslot.homeserver-ericp.fr";
+export const API_URL = "http://localhost:8001/api/v1";
